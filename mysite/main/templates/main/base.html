@@ -1,0 +1,374 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>{%block title%}Maritime Tech-hub{%endblock%}</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'main/images/marinelogo.jpeg'%}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'main/css/spinner.css'%}" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type = "text/javascript">
+    var user = "{{request.user}}";
+  
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  var csrftoken = getToken('csrftoken');
+  </script>
+<style>
+  {%block defaultStyle%}
+
+  body{
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+  }
+  .box-element{
+    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  .product{
+    border-radius: 0 0 4px 4px;
+  }
+  .thumbnail{
+    width: 100%;
+    height: 200px;
+    -webkit-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+    -moz-box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+    box-shadow: -1px -3px 5px -2px rgba(214,214,214,1);
+  
+  }
+  .row-image{
+    width: 100px;
+  }
+  .quantity{
+    display: inline-block;
+    font-weight: 600;
+    padding-right: 10px;
+  }
+  .chg-quantity{
+    width: 12px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition:.1s;
+  }
+  
+  .chg-quantity:hover{
+    opacity: .6;
+  }
+  
+  .cart-row{
+    display: flex;
+    align-item: flex-stretched;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+  }
+  .align-checkout-content{
+    float: right;
+  }
+  .footer{
+    bottom: 0px;
+    width: 100%;
+  }
+  .navbar,.card-bg{
+    background: #05445E;
+  }
+  .nav-brand-img{
+    width: 38px;
+    height: 32px;
+  }
+  #cart-icon{
+    width: 40px;
+    display: "inline-block";
+    margin-left: 15px;
+  }
+  #cart-total{
+    display: block;
+    text-align: center;
+    color:#fff;
+    background-color:red;
+    width: 18px;
+    height:20px;
+    border-radius:50%;
+    font-size: 14px;
+  }
+  
+/* For desktop: */
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 100%;
+  }
+}
+  {%endblock%} 
+  
+{%block style%}
+.carousel-item img{
+  filter: brightness(65%);
+}
+.carousel slide:hover{
+  cursor: pointer;
+}
+{%endblock%}
+</style>
+
+
+</head>
+
+
+<body> 
+  <!-- <div class="loader"></div> -->
+{%block content%}
+      
+      <nav class=" navbar navbar-expand-lg  navbar-dark fixed-top border-2 border-bottom border-warning">
+        <div class="container-fluid">
+            
+            {%block userspage%}
+          <div class="nav-brand">
+            <a class="navbar-brand" href="/home">
+              <img src="{% static 'main/images/marinelogo.jpeg'%}" alt="logo" class="d-inline-block align-text-top rounded-circle nav-brand-img">
+              Maritime-Techhub
+            </a>
+          </div>
+          {%endblock%}
+          <br>
+
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <!-- <a class="navbar-brand" href="#">Navbar</a>-->
+          
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+            {%block navmenu%}
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link text-white" aria-current="page" href="/home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/store">Shop</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Category</a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link text-white" href="#">About</a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link text-white" href="#">Contact</a>
+              </li>
+            </ul>
+            {%endblock%}
+          
+                
+              {%block navsearch%}
+              <input class="form-control me-2 w-50" type="search" name="search" placeholder="Search..." aria-label="Search" >
+              {%endblock%}
+             
+
+              
+              {%block Login%}
+              <div class ="form-inline my-2 my-lg-0 ">
+                <a href="/login" class="btn btn-outline-light text-white link-secondary ">login </a>
+
+
+                
+                <a href="/cart"> 
+                  <img id="cart-icon" src="{%static 'main/images/cart.png'%}">
+                </a>
+                <p id= 'cart-total' style="margin: -40px 0px 20px 120px">{{cartItems}}</p>
+                
+
+              </div>
+
+
+
+              {% comment %} <button class="btn btn-outline-light text-white link-secondary" type="submit">          
+                <a href="/login" class="text-decoration-none text-white link-secondary m-0 p-0">Login</a>
+              </button>  {% endcomment %}
+              {%endblock%}
+
+             
+          </div>
+        </div>
+      </nav>
+    
+    <!--Reviews-->
+          <!-- Slides-->
+    <br>
+    <br>
+       {%block slider%}
+      <div class=" justify-content-center slidewrap m-4" style="height:500px; ;">
+       
+        <div id="carouselExampleControls" class="col-md-6 carousel slide carousel-fade shadow-sm " data-bs-ride="carousel" style="height:500px; width:100%;">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+          </div>
+          <div class="carousel-inner w-100 "  style="height:500px">
+            <div class="carousel-item active">
+              <img src="{%static 'main/images/Automation.jpeg'%}" class="d-block w-100"  style="height:500px" alt="Automation">
+              <div class="carousel-caption d-block d-md-block">
+                <h5 class="col">industrial Automation</h5 >
+              </div>
+            </div>
+            <div class="carousel-item"  style="height:500px">
+              <img src="{%static 'main/images/ship_repair_and_maintenance.jpeg'%}" class="d-block w-100"  style="height:500px" alt="buyingSelling">
+              <div class="carousel-caption col d-block d-md-block">
+                <h5 class="col">Ship repair and maintenance</h5 >
+                
+              </div>
+            </div>
+            <div class="carousel-item"  style="height:500px">
+              <img src="{%static 'main/images/Artificial_intelligence.jpg'%}" class="d-block w-100"  style="height:500px" alt="ship maintenance">
+              <div class="carousel-caption col d-block d-md-block">
+                <h5 class="col">Artificial Intelligence</h5 >
+              
+              </div>
+            </div>
+            <div class="carousel-item"  style="height:500px">
+              <img src="{%static 'main/images/buying,selling, installation and maintenance.png'%}" class="d-block w-100"  style="height:500px" alt="ship maintenance">
+              <div class="carousel-caption d-block d-md-block">
+                <h5 class="col"> Buying and selling of engines</h5>
+                <i> Both marine and diesel engines</i>
+              </div>
+            </div>
+            <div class="carousel-item"  style="height:500px">
+              <img src="{%static 'main/images/software dev.jpeg'%}" class="d-block w-100"  style="height:500px" alt="ship maintenance">
+              <div class="carousel-caption d-block d-md-block">
+                <h5 class="col" >Software Development</h5 >
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon " aria-hidden="true"></span>
+            <span class="visually-hidden ">Next</span>
+          </button>
+        </div>
+      </div>
+      {%endblock%}  
+
+ 
+     
+
+          
+    <!--content-->
+    <br>
+    <br>
+
+    {%block main%}
+          <main class="m-4">
+            <div class="p-5 card-bg text-white rounded ">
+              <h1 id="reg">Maritime Tech-hub</h1> 
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..</p> 
+            </div>
+            <hr>
+            <br>
+
+            <div class="row" >
+              <h1>Our Services</h1> 
+              <div class="col p-5 card-bg text-white rounded" style="margin: 10px 12px 0px 12px;">
+                <h1>Example</h1> 
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..</p>
+                <hr> 
+              </div>
+              
+              <div class=" col p-5 card-bg text-white rounded" style="margin: 10px 12px 0px 12px;">
+                <h1> Example</h1> 
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..</p>
+                <hr> 
+              </div>
+            </div>
+
+            <div class="row mt-5" >
+              <div class="col p-5 card-bg text-white rounded" style="margin: 10px 12px 0px 12px;">
+                <h1>Example</h1> 
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..</p>
+                <hr> 
+              </div>
+              
+              <div class=" col p-5 card-bg text-white rounded" style="margin: 10px 12px 0px 12px;">
+                <h1> Example</h1> 
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..</p>
+                <hr> 
+              </div>
+            </div>
+            <br>
+            </div>
+            
+            <br>
+            <div class="p-5 card-bg text-white rounded ">
+              <h1>Partners</h1> 
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..</p> 
+              <hr>
+            </div>  
+          </main>
+    {%endblock%}
+
+
+    {%block aftermain%}<hr> {%endblock%}
+    <br>
+
+    {%block footer%}
+    <footer class="footer mt-5 p-4 card-bg text-white text-center  ">
+      <p>Copyright &copy; 2022</p>
+    </footer>
+    {%endblock%}
+
+
+    {%block jsscript%}
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+    <!-- <script src="{%static 'main/javascript/generalFunc.js'%}"></script> -->
+    <script src="{%static 'main/javascript/carts.js'%}"></script>
+
+    {%endblock%} 
+  
+{%endblock%}
+
+</body>
+  </html>
+  
+  
+  

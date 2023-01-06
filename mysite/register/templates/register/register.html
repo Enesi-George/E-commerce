@@ -1,0 +1,146 @@
+{% extends 'main/base.html'%}
+{%load static%}
+{%load crispy_forms_tags %}
+
+
+{%block title%}Register{%endblock%}
+{%block style%}
+body{
+  background-color: #f1f1f1;
+}
+.carousel-item img{
+  filter: brightness(65%);
+}
+.carousel slide:hover{
+  cursor: pointer;
+}
+.errorlist li{
+    color: red;
+    font-size: 14px;
+}
+ul ul{
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+
+
+.psw-requirements li{
+  padding: 0px 0px 0px 0px;
+  font-size: 14px;
+  margin: 0px 0px 0px 0px;
+  list-style-type: none;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -15px;
+  content: "\2713";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: grey;
+}
+
+.invalid::before {
+  position: relative;
+  left: -15px;
+  content: '\2717';
+}
+
+{%endblock%}
+
+{%block navsearch%} {%endblock%}
+{%block Login%} {%endblock%}
+{%block SignUp%} {%endblock%}
+
+{%block main%}
+<div class="d-flex justify-content-center formdiv">
+    <form method="POST" class="form-group m-0 py-3 px-5 border border-2 rounded-3 border-muted w-50 ">
+      {% csrf_token %}
+        {{crispy}}
+        {{form.errors}}
+        <h3>Register</h3>
+            <hr>        
+        <div id="div_id_username" class="form-group"> 
+            <label for="id_username" class=" requiredField">
+                Username<span class="asteriskField">*</span> 
+            </label> 
+        <div> 
+            {{form.username}}
+            <small id="hint_id_username" class="form-text text-muted">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+            </small> 
+        </div> 
+    </div> 
+    <div id="div_id_email" class="form-group">
+        <label for="id_email" class=" requiredField">
+            Email<span class="asteriskField">*</span> 
+        </label> 
+        <div> {{form.email}} </div> 
+    </div> 
+    <div id="div_id_password1" class="form-group"> 
+        <label for="id_password1" class=" requiredField">
+            Password<span class="asteriskField">*</span> 
+        </label> 
+        <div> 
+            {{form.password1}}
+            <ul class="psw-requirements mt-1">
+                <li id="letter" class="invalid">Your password must contain <b>lowercase</b> letter</li>
+                <li id="capital" class="invalid">Your password must contain <b>capital (uppercase)</b> letter</li>
+                <li id="number" class="invalid">Your password must contain <b>number</b></li>
+                <li id="length" class="invalid">Your password must be Minimum <b>8 characters</b></li>
+            </ul>
+    
+        </div> 
+    </div> 
+    <div id="div_id_password2" class="form-group"> 
+        <label for="id_password2" class=" requiredField">
+            Password confirmation<span class="asteriskField">*</span> 
+        </label> 
+        <div> 
+            {{form.password2}} 
+            <small id="hint_id_password2" class="form-text text-muted">Enter the same password as before, for verification.</small> 
+        </div> 
+    </div>
+   
+        
+        <button type="submit" class="btn btn-success mt-3">Register</button>
+        <p class="already-have-acct">Already have an account? <a href="/login">Login</a></p>
+
+    </form>
+</div>
+      
+  
+{%endblock%}
+
+{%block slider%} {%endblock%}
+
+{%block aftermain%} {%endblock%}
+
+{%block footer%} {%endblock%}
+
+
+{%block jsscript%}
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+<script>
+  var form_fields= document.getElementsByTagName("input")
+    
+  for(var field in form_fields){
+      form_fields[field].className += "form-control"
+  }
+
+
+
+</script>
+
+<script src="{%static 'main/javascript/formvalidate.js'%}"></script>
+<script src="{%static 'main/javascript/generalFunc.js'%}"></script>
+
+{%endblock%} 
